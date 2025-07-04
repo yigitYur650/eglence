@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<title>Beni Seviyor Musun?</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #faf8f1;
+    text-align: center;
+    padding: 20px;
+    margin-top: 180px;
+  }
+
+  .bears {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 20px;
+    position: relative;
+    height: 220px;
+  }
+
+  /* FIGÜRLERİN BOYUTUNU BURADAN AYARLIYORSUN */
+  #leftBear, #rightBear {
+    width: 250px; /* genişlik */
+    height: auto;  /* orantıyı koru */
+    position: relative;
+    transition: transform 1s ease;
+    user-select: none;
+  }
+
+  h1 {
+    font-size: 2em;
+    margin-bottom: 40px;
+  }
+
+  .buttons {
+    margin-top: 30px;
+    position: relative;
+    height: 200px;
+  }
+
+  button {
+    font-size: 18px;
+    padding: 10px 20px;
+    margin: 0 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
+  #yesBtn {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  #noBtn {
+    background-color: #f44336;
+    color: white;
+    position: absolute;
+    left: 150px;
+    top: 40px;
+    transition: left 0.3s ease, top 0.3s ease;
+  }
+
+  #message {
+    margin-top: 20px;
+    font-size: 22px;
+    min-height: 30px;
+    color: #333;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  #message.show {
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+
+  <div class="bears">
+    <img id="leftBear" src="/img/1F981_color.png" alt="sol figür" />
+    <img id="rightBear" src="/img/1F985_color.png" alt="sağ figür" />
+  </div>
+
+  <h1>Beni seviyor musun?</h1>
+
+  <div class="buttons">
+    <button id="yesBtn">Evet</button>
+    <button id="noBtn">Hayır</button>
+  </div>
+
+  <div id="message"></div>
+
+  <script>
+    const leftBear = document.getElementById("leftBear");
+    const rightBear = document.getElementById("rightBear");
+    const message = document.getElementById("message");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+
+    yesBtn.addEventListener("click", () => {
+      leftBear.style.transform = "translateX(50px) rotate(15deg)";
+      rightBear.style.transform = "translateX(-50px) rotate(-15deg) scaleX(-1)";
+      message.innerText = "Ben de seni seviyorum 💖";
+      message.classList.add("show");
+      yesBtn.disabled = true;
+      noBtn.disabled = true;
+    });
+
+    noBtn.addEventListener("mousemove", () => {
+      const container = document.querySelector(".buttons");
+      const rect = container.getBoundingClientRect();
+      const maxX = rect.width - noBtn.offsetWidth;
+      const maxY = rect.height - noBtn.offsetHeight;
+
+      noBtn.style.left = `${Math.random() * maxX}px`;
+      noBtn.style.top = `${Math.random() * maxY}px`;
+    });
+  </script>
+</body>
+</html>
